@@ -32,6 +32,9 @@ public class Main {
 
         datasource.printAlbumsForArtist(indexOfArtist,sortOrder);
 
+        int count = datasource.getCount(Datasource.TABLE_SONGS);
+        System.out.println("Number of songs is: " + count);
+
         System.out.println("1- For None");
         System.out.println("2- For Ascending order");
         System.out.println("3- For Descending order");
@@ -49,6 +52,16 @@ public class Main {
         sortOrder = scanner.nextInt();
 
         datasource.printQueryArtistsForSong(indexOfSong,sortOrder);
+
+        System.out.print("push to enter for continue: ");
+        scanner.nextLine();
+        String str = scanner.nextLine();
+
+        datasource.createViewForSongArtists();
+
+        System.out.println("Enter a song name: ");
+        str = scanner.nextLine();
+        datasource.printSongInfoView(str);
 
         datasource.close();
     }

@@ -2,8 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bf127c38-9243-4f61-9c1b-599726051bc9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/model/SongArtist.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/ArtistForSong.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/model/ArtistList.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/music.db" beforeDir="false" afterPath="$PROJECT_DIR$/music.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Music/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Music/Main.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Music/model/Datasource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Music/model/Datasource.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/model/Datasource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/model/Datasource.java" afterDir="false" />

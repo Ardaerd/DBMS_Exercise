@@ -79,12 +79,19 @@ public class Datasource {
     public static final String QUERY_VIEW_SONG_INFO = "SELECT " + COLUMN_ARTISTS_NAME + "," +
             COLUMN_SONG_ALBUM + "," + COLUMN_SONG_TRACK + " FROM " + TABLE_ARTIST_SONG_VIEW +
             " WHERE " + COLUMN_SONG_TITLE + " = \"";
+
+    // SELECT name, album, track FROM artist_list WHERE title = ?;
+    public static final String QUERY_VIEW_SONG_INFO_PREP = "SELECT " + COLUMN_ARTISTS_NAME + "," +
+            COLUMN_SONG_ALBUM + "," + COLUMN_SONG_TRACK + " FROM " + TABLE_ARTIST_SONG_VIEW +
+            " WHERE " + COLUMN_SONG_TITLE + " = ?";
     private Connection conn;
+    private PreparedStatement querySongInfoView;
 
     // Connecting to the DB
     public boolean open() {
         try {
             conn = DriverManager.getConnection(CONNECTION_STRING);
+            querySongInfoView = conn.prepareStatement(QUERY_VIEW_SONG_INFO_PREP);
             return true;
         } catch (SQLException e) {
             System.out.println("Couldn't connect to database : " + e.getMessage());
@@ -95,6 +102,9 @@ public class Datasource {
     // Closing the connection
     public void close() {
         try {
+            if (querySongInfoView != null)
+                querySongInfoView.close();
+
             if (conn != null) {
                 conn.close();
             }
@@ -316,14 +326,10 @@ public class Datasource {
     }
 
     public List<SongArtist> querySongInfoView(String title) {
-        StringBuilder sb = new StringBuilder(QUERY_VIEW_SONG_INFO);
-        sb.append(title);
-        sb.append("\"");
 
-        System.out.println(sb.toString());
-
-        try (Statement statement = conn.createStatement();
-             ResultSet results = statement.executeQuery(sb.toString())) {
+        try {
+            querySongInfoView.setString(1,title);
+            ResultSet results = querySongInfoView.executeQuery();
 
             List<SongArtist> songArtists = new ArrayList<>();
             while (results.next()) {
@@ -344,6 +350,11 @@ public class Datasource {
 
     public void printSongInfoView(String song) {
         List<SongArtist> songArtists = querySongInfoView(song);
+
+        if (songArtists.isEmpty()) {
+            System.out.println("Song couldn't find.");
+            return;
+        }
 
         for (SongArtist songInfo : songArtists)
             System.out.println("|Artist: " + songInfo.getArtistName() + " |Album: " + songInfo.getAlbumsName() + " |Track: " + songInfo.getSongsTrack() + "|");
